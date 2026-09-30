@@ -412,16 +412,13 @@ async function boot() {
     gsap.to(loader.el, { autoAlpha: 0, duration: 0.6, ease: 'power2.inOut', onComplete: () => loader.el.remove() });
     playIntro();
     if (!lenis) { introDone = true; body.classList.remove('is-loading'); }
-    // los otros tres sabores se cargan solo al acercarse a la gama (no compiten con la entrada)
+    // los otros tres sabores: 3 s después de la entrada o al llegar a los rounds (lo que ocurra antes)
     if (ok) {
       let started = false;
-      const check = () => {
-        if (started || scrollY < (tops.formula || 0)) return;
-        started = true; removeEventListener('scroll', check);
-        stage.loadRest();
-      };
+      const start = () => { if (started) return; started = true; removeEventListener('scroll', check); stage.loadRest(); };
+      const check = () => { if (scrollY >= (tops.rounds || 0) - innerHeight) start(); };
       addEventListener('scroll', check, { passive: true });
-      check();
+      setTimeout(start, 3000);
     }
   }, wait);
 

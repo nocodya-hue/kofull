@@ -196,10 +196,11 @@ export class Stage {
 
   // Carga en segundo plano del resto de etiquetas (y 4K si procede)
   async loadRest(urls4k) {
-    for (let i = 1; i < this.cans.length; i++) {
-      const t = await this.loadTex(this.labelUrls[i]);
-      if (t) { this.renderer.initTexture(t); this.cans[i].labelMat.map = t; }
-    }
+    // en paralelo; se sube cada una a la GPU en cuanto llega
+    await Promise.all(this.cans.slice(1).map(async (c, k) => {
+      const t = await this.loadTex(this.labelUrls[k + 1]);
+      if (t) { this.renderer.initTexture(t); c.labelMat.map = t; }
+    }));
     if (!urls4k) return;
     for (let i = 0; i < this.cans.length; i++) {
       const t = await this.loadTex(urls4k[i]);
