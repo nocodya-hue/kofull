@@ -33,14 +33,15 @@ export class Stage {
 
     const r = this.renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
     r.setPixelRatio(this.dpr);
-    r.setSize(innerWidth, innerHeight, false);
+    const [w0, h0] = this.viewSize();
+    r.setSize(w0, h0, false);
     r.setClearColor(0x000000, 0);
     r.outputColorSpace = THREE.SRGBColorSpace;
     r.toneMapping = THREE.ACESFilmicToneMapping;
     r.toneMappingExposure = 1.05;
 
     this.scene = new THREE.Scene();
-    this.camera = new THREE.PerspectiveCamera(30, innerWidth / innerHeight, 0.1, 200);
+    this.camera = new THREE.PerspectiveCamera(30, w0 / h0, 0.1, 200);
     this.camera.position.set(0, 0, 16);
     this.lookAt = new THREE.Vector3();
 
@@ -241,7 +242,7 @@ export class Stage {
       };
       this.floor = new Reflector(geo, {
         shader, color: 0xffffff,
-        textureWidth: Math.round(innerWidth * 0.6), textureHeight: Math.round(innerHeight * 0.6),
+        textureWidth: Math.round(this.viewSize()[0] * 0.6), textureHeight: Math.round(this.viewSize()[1] * 0.6),
       });
       this.floor.material.transparent = true;
       this.floor.material.depthWrite = false;
@@ -312,12 +313,18 @@ export class Stage {
   }
 
   resize() {
-    const w = innerWidth, h = innerHeight;
+    const [w, h] = this.viewSize();
     this.isMobile = w < 820;
     this.camera.aspect = w / h;
     this.camera.updateProjectionMatrix();
     this.renderer.setSize(w, h, false);
     if (this.floor && this.floor.getRenderTarget) this.floor.getRenderTarget().setSize(Math.round(w * 0.6), Math.round(h * 0.6));
+  }
+
+  // tamaño CSS real del canvas: si no coincide con el render, el navegador estira la imagen (lata deformada en móvil)
+  viewSize() {
+    const c = this.canvas;
+    return [Math.max(1, c.clientWidth || innerWidth), Math.max(1, c.clientHeight || innerHeight)];
   }
 
   setPointer(nx, ny) { this.pointer.x = nx; this.pointer.y = ny; }
@@ -333,7 +340,7 @@ export class Stage {
     if (avg > 1 / 45 && this.dpr > 1) {
       this.dpr = Math.max(1, this.dpr - 0.25);
       this.renderer.setPixelRatio(this.dpr);
-      this.renderer.setSize(innerWidth, innerHeight, false);
+      this.renderer.setSize(...this.viewSize(), false);
     } else this.adaptDone = true;
   }
 
