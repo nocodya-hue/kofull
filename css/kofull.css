@@ -38,15 +38,16 @@ body {
   -webkit-font-smoothing: antialiased;
   overflow-x: clip;
 }
-/* luz ambiental del sabor/escena, detrás del canvas (capa propia: cambiarla no recalcula el documento) */
-.ambient {
-  --amb: 209, 15, 24; --amb-a: 0.34;
-  position: fixed; inset: 0; z-index: -1; pointer-events: none; contain: strict;
-  background:
-    radial-gradient(70% 60% at 62% 108%, rgba(var(--amb), var(--amb-a)) 0%, rgba(var(--amb), calc(var(--amb-a) * 0.35)) 38%, transparent 72%),
-    radial-gradient(120% 90% at 50% 40%, transparent 55%, rgba(0, 0, 0, 0.55) 100%),
-    var(--black);
-}
+/* luz ambiental del sabor/escena: una capa por color; solo se anima la opacidad */
+.ambient { position: fixed; inset: 0; z-index: -1; pointer-events: none; contain: strict; background: var(--black); }
+.ambient::after { content: ''; position: absolute; inset: 0; background: radial-gradient(120% 90% at 50% 40%, transparent 55%, rgba(0, 0, 0, 0.55) 100%); }
+.ambient i { position: absolute; inset: 0; opacity: 0; will-change: opacity; }
+.ambient [data-c="red"] { background: radial-gradient(70% 60% at 62% 108%, rgba(209, 15, 24, 1) 0%, rgba(209, 15, 24, 0.35) 38%, transparent 72%); }
+.ambient [data-c="orange"] { background: radial-gradient(70% 60% at 62% 108%, rgba(236, 72, 6, 1) 0%, rgba(236, 72, 6, 0.35) 38%, transparent 72%); }
+.ambient [data-c="green"] { background: radial-gradient(70% 60% at 62% 108%, rgba(112, 190, 16, 1) 0%, rgba(112, 190, 16, 0.35) 38%, transparent 72%); }
+.ambient [data-c="blue"] { background: radial-gradient(70% 60% at 62% 108%, rgba(8, 60, 210, 1) 0%, rgba(8, 60, 210, 0.35) 38%, transparent 72%); }
+.ambient [data-c="ice"] { background: radial-gradient(70% 60% at 62% 108%, rgba(55, 105, 165, 1) 0%, rgba(55, 105, 165, 0.35) 38%, transparent 72%); }
+.ambient [data-c="sodium"] { background: radial-gradient(70% 60% at 62% 108%, rgba(230, 110, 36, 1) 0%, rgba(230, 110, 36, 0.35) 38%, transparent 72%); }
 body.is-loading { overflow: hidden; }
 img { display: block; max-width: 100%; }
 a { color: inherit; }

@@ -213,7 +213,27 @@ function updateUI(y, p) {
 
 // ---------------- Render loop ----------------
 const derived = {};
-const ambientEl = $('.ambient'), flashEl = $('.flash');
+const flashEl = $('.flash');
+const ambLayers = Object.fromEntries($$('.ambient i').map((el) => [el.dataset.c, el]));
+const AMB_BASE = { red: [209, 15, 24], ice: [55, 105, 165], sodium: [230, 110, 36] };
+const AMB_FLAVOR = ['red', 'orange', 'green', 'blue'];
+const ambW = {};
+// color de escena → mezcla de los dos colores base más cercanos; en la gama, mezcla de sabores
+function ambientWeights(r, gC, b, flavor, gama, alpha) {
+  for (const k in ambLayers) ambW[k] = 0;
+  const keys = Object.keys(AMB_BASE);
+  const dist = (k) => { const c = AMB_BASE[k]; return (c[0] - r) ** 2 + (c[1] - gC) ** 2 + (c[2] - b) ** 2; };
+  keys.sort((x, y) => dist(x) - dist(y));
+  const A = AMB_BASE[keys[0]], B = AMB_BASE[keys[1]];
+  const ab2 = (B[0] - A[0]) ** 2 + (B[1] - A[1]) ** 2 + (B[2] - A[2]) ** 2;
+  const t = clamp(((r - A[0]) * (B[0] - A[0]) + (gC - A[1]) * (B[1] - A[1]) + (b - A[2]) * (B[2] - A[2])) / ab2, 0, 1);
+  ambW[keys[0]] += (1 - t) * (1 - gama); ambW[keys[1]] += t * (1 - gama);
+  if (gama > 0) {
+    const i = clamp(Math.floor(flavor), 0, 3), j = Math.min(3, i + 1), ft = clamp(flavor - i, 0, 1);
+    ambW[AMB_FLAVOR[i]] += (1 - ft) * gama; ambW[AMB_FLAVOR[j]] += ft * gama;
+  }
+  for (const k in ambLayers) setStyle(ambLayers[k], 'opacity', (ambW[k] * alpha).toFixed(3));
+}
 const styleCache = new WeakMap();
 // escribe en el DOM solo si el valor cambia (evita recálculos de estilo en cada frame)
 function setStyle(el, prop, val) {
@@ -229,12 +249,10 @@ function frame() {
   const p = clamp(y / maxScroll, 0, 1);
   if (tl) tl.progress(p);
 
-  // luz ambiente del fondo (se tiñe con el sabor en la gama)
+  // luz ambiente: se reparte el color entre capas fijas y solo cambia su opacidad
   const fc = mixFlavor(data.flavor);
   const g = data.gama;
-  const ar = lerp(data.ambR, fc[0], g), ag = lerp(data.ambG, fc[1], g), ab = lerp(data.ambB, fc[2], g);
-  setStyle(ambientEl, '--amb', `${ar | 0}, ${ag | 0}, ${ab | 0}`);
-  setStyle(ambientEl, '--amb-a', (data.ambA * (0.35 + 0.65 * introK)).toFixed(3));
+  ambientWeights(data.ambR, data.ambG, data.ambB, data.flavor, g, data.ambA * (0.35 + 0.65 * introK));
   setStyle(flashEl, 'opacity', data.flash.toFixed(3));
 
   if (stage) {
@@ -415,7 +433,12 @@ async function boot() {
     // los otros tres sabores: 3 s después de la entrada o al llegar a los rounds (lo que ocurra antes)
     if (ok) {
       let started = false;
-      const start = () => { if (started) return; started = true; removeEventListener('scroll', check); stage.loadRest(); };
+      const start = () => {
+        if (started) return; started = true; removeEventListener('scroll', check);
+        stage.loadRest();
+        // fotos de rounds y tienda: se descargan y descodifican ya, para que Safari no se atasque al mostrarlas
+        $$('.shot img, .shop img').forEach((img) => { img.loading = 'eager'; img.decode && img.decode().catch(() => {}); });
+      };
       const check = () => { if (scrollY >= (tops.rounds || 0) - innerHeight) start(); };
       addEventListener('scroll', check, { passive: true });
       setTimeout(start, 3000);
@@ -434,5 +457,5 @@ async function boot() {
   });
 }
 
-window.__kofull = { get data() { return data; }, get tl() { return tl; }, get tops() { return tops; }, get max() { return maxScroll; }, get lenis() { return lenis; } };
+window.__kofull = { get data() { return data; }, get tl() { return tl; }, get tops() { return tops; }, get max() { return maxScroll; }, get lenis() { return lenis; }, get stage() { return stage; }, get derived() { return derived; } };
 boot();
