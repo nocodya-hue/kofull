@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>KOFULL · Bebida funcional para deportes de combate · Valencia</title>
+  <meta name="description" content="KOFULL es la bebida funcional nacida del MMA en Valencia. 473 mL, 200 mg de cafeína, 4.000 mg de BCAAs, electrolitos y vitaminas B. Sin azúcar. Entrena. Recupera. Vuelve.">
+  <link rel="canonical" href="https://nocodya-hue.github.io/kofull/">
+  <meta name="theme-color" content="#070708">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_ES">
+  <meta property="og:site_name" content="KOFULL">
+  <meta property="og:title" content="KOFULL · Entrena. Recupera. Vuelve.">
+  <meta property="og:description" content="Bebida funcional para deportes de combate. Hecha en Valencia. 0 g de azúcar, electrolitos, BCAAs y cafeína.">
+  <meta property="og:image" content="https://nocodya-hue.github.io/kofull/assets/img/og.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="KOFULL · Entrena. Recupera. Vuelve.">
+  <meta name="twitter:description" content="Bebida funcional para deportes de combate. Hecha en Valencia.">
+  <meta name="twitter:image" content="https://nocodya-hue.github.io/kofull/assets/img/og.jpg">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23070708'/%3E%3Cpath d='M16 12h9v17l12-17h11L35 30l14 22H38L28 36l-3 4v12h-9z' fill='%23d10f18'/%3E%3C/svg%3E">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=Geist:wght@400;500&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="preload" as="image" href="assets/tex/label-red-2k.webp" type="image/webp">
+  <link rel="stylesheet" href="css/kofull.css">
+
+  <script type="importmap">
+  { "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.min.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"
+  } }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://nocodya-hue.github.io/kofull/#org",
+        "name": "KOFULL",
+        "url": "https://nocodya-hue.github.io/kofull/",
+        "foundingDate": "2026",
+        "foundingLocation": { "@type": "Place", "name": "Valencia, España" },
+        "slogan": "Train. Recover. Return.",
+        "description": "Marca valenciana de nutrición funcional nacida del MMA y los deportes de combate."
+      },
+      {
+        "@type": "Product",
+        "name": "KOFULL MMA Fighters Energy Drink",
+        "brand": { "@id": "https://nocodya-hue.github.io/kofull/#org" },
+        "description": "Bebida funcional de 473 mL sin azúcar con cafeína (200 mg), BCAAs (4.000 mg), taurina (1.000 mg), L-carnitina (500 mg), vitaminas B3, B6 y B12 y electrolitos.",
+        "image": "assets/img/photo-red.webp",
+        "size": "473 mL",
+        "hasVariant": [
+          { "@type": "Product", "name": "KOFULL Frutas Rojas", "image": "assets/img/photo-red.webp" },
+          { "@type": "Product", "name": "KOFULL Mango Passion", "image": "assets/img/photo-orange.webp" },
+          { "@type": "Product", "name": "KOFULL Lima Limón", "image": "assets/img/photo-green.webp" },
+          { "@type": "Product", "name": "KOFULL Blue Berry", "image": "assets/img/photo-blue.webp" }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body class="is-loading">
+  <div class="ambient" aria-hidden="true"></div>
+  <a class="skip" href="#contenido">Saltar al contenido</a>
+
+  <!-- 00 · LOADER -->
+  <div class="loader" aria-hidden="true">
+    <div class="loader__mark">KOFULL</div>
+    <div class="loader__row">
+      <span class="mono">ROUND 01</span>
+      <span class="loader__bar"><i></i></span>
+      <span class="mono loader__pct">00</span>
+    </div>
+  </div>
+
+  <!-- NAVEGACIÓN -->
+  <header class="nav" data-hide-on-load>
+    <a class="nav__logo" href="#inicio" aria-label="KOFULL, volver al inicio">KOFULL<sup>®</sup></a>
+    <nav class="nav__links" aria-label="Principal">
+      <a href="#gama">Productos</a>
+      <a href="#manifiesto">Filosofía</a>
+      <a href="#recuperacion">Recuperación</a>
+    </nav>
+    <div class="nav__right">
+      <a class="btn btn--shop" href="#tienda">Shop <span class="cart-count" aria-label="productos en la bolsa">0</span></a>
+    </div>
+    <div class="progress" aria-hidden="true"><i></i></div>
+  </header>
+
+  <canvas id="stage" aria-hidden="true"></canvas>
+  <div class="flash" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="cursor" aria-hidden="true"><i></i><span>ARRASTRA</span></div>
+
+  <div class="hud" aria-hidden="true" data-hide-on-load>
+    <div class="hud__l mono"><span class="hud__clock">05:00</span><span class="hud__scene">01 — Entrada</span></div>
+    <div class="hud__r mono"><span>39.4699° N · 0.3763° W</span><span class="hud__scroll">Desliza</span></div>
+  </div>
+
+  <main id="contenido">
+
+    <!-- 01 · HERO -->
+    <section id="inicio" class="scene" data-scene="hero" data-label="Entrada" style="--h:220">
+      <div class="pin pin--back">
+        <h1 class="hero__title">
+          <span class="line" data-r="up" data-in="intro" data-out="70,120">Entrena.</span>
+          <span class="line" data-r="up" data-in="intro" data-out="74,124">Recupera.</span>
+          <span class="line line--red" data-r="up" data-in="intro" data-out="78,128">Vuelve.</span>
+          <span class="sr-only">KOFULL, bebida funcional para deportes de combate hecha en Valencia.</span>
+        </h1>
+      </div>
+      <div class="pin pin--front">
+        <p class="hero__eyebrow mono" data-r="fade" data-in="intro" data-out="40,80">MMA Fighters Energy Drink — Valencia, 2026</p>
+        <p class="hero__aside" data-r="fade" data-in="intro" data-out="40,80">Para los que entrenan hasta el final y vuelven al día siguiente. <span class="mono">473 mL · 0 g azúcar · 200 mg cafeína</span></p>
+        <div class="hero__cue mono" data-r="fade" data-in="intro" data-out="10,40"><span></span>Desliza. Suena la campana.</div>
+      </div>
+    </section>
+
+    <!-- 02 · CAMPANA -->
+    <section class="scene" data-scene="campana" data-label="La campana" style="--h:260">
+      <div class="pin pin--front">
+        <h2 class="display display--xl bell__title" data-r="chars" data-in="-30,10" data-out="34,56">El combate no termina cuando suena la campana.</h2>
+      </div>
+      <div class="pin pin--front">
+        <p class="display display--l bell__sub" data-r="chars" data-in="72,100" data-out="138,152">Entrenar es solo una parte.</p>
+      </div>
+    </section>
+
+    <!-- 03 · VOLVER -->
+    <section class="scene" data-scene="volver" data-label="Volver" style="--h:170">
+      <div class="pin pin--front">
+        <h2 class="display display--xl back__title" data-r="chars" data-in="-10,20" data-out="50,68">Recuperarte es lo que te permite <em>volver.</em></h2>
+      </div>
+    </section>
+
+    <!-- 04 · ROUNDS -->
+    <section id="rounds" class="scene scene--rounds" data-scene="rounds" data-label="Rounds" style="--h:560">
+      <div class="pin pin--back">
+        <div class="round__num" data-r="fade" data-in="-10,12" data-out="84,92" aria-hidden="true">01</div>
+        <div class="round__num" data-r="fade" data-in="100,118" data-out="176,184" aria-hidden="true">02</div>
+        <div class="round__num" data-r="fade" data-in="192,210" data-out="268,276" aria-hidden="true">03</div>
+        <div class="round__num" data-r="fade" data-in="284,302" data-out="360,368" aria-hidden="true">04</div>
+        <div class="round__num" data-r="fade" data-in="376,394" data-out="440,460" aria-hidden="true">05</div>
+        <figure class="shot" data-r="fade" data-in="0,20" data-out="80,92"><img src="assets/img/round-01.webp" alt="Manos de un luchador vendándose antes de entrenar, en blanco y negro" width="960" height="1200" loading="lazy" decoding="async"><figcaption class="mono">Round 01</figcaption></figure>
+        <figure class="shot" data-r="fade" data-in="98,118" data-out="172,184"><img src="assets/img/round-02.webp" alt="Dos luchadores en el clinch contra la reja, con el sudor saltando bajo los focos" width="960" height="1200" loading="lazy" decoding="async"><figcaption class="mono">Round 02</figcaption></figure>
+        <figure class="shot" data-r="fade" data-in="190,210" data-out="264,276"><img src="assets/img/round-03.webp" alt="Luchador sumergido en un baño de hielo tras el entrenamiento, con luz fría" width="960" height="1200" loading="lazy" decoding="async"><figcaption class="mono">Round 03</figcaption></figure>
+        <figure class="shot" data-r="fade" data-in="282,302" data-out="356,368"><img src="assets/img/round-04.webp" alt="Luchador sentado en el banco del vestuario con la cabeza baja" width="960" height="1200" loading="lazy" decoding="async"><figcaption class="mono">Round 04</figcaption></figure>
+        <figure class="shot" data-r="fade" data-in="374,394" data-out="440,460"><img src="assets/img/round-05.webp" alt="Luchador de espaldas caminando por el túnel hacia el ring iluminado" width="960" height="1200" loading="lazy" decoding="async"><figcaption class="mono">Round 05</figcaption></figure>
+      </div>
+      <div class="pin pin--front">
+        <h2 class="sr-only">Cinco rounds: entrenamiento, esfuerzo, recuperación, nutrición y volver</h2>
+        <article class="round" data-in="0,16" data-out="80,92">
+          <p class="round__k mono" data-r="fade">Round 01</p>
+          <h3 class="display display--l" data-r="chars">Entrenamiento</h3>
+          <p class="round__p" data-r="lines">Las 6:40. Vendas, comba, sombra. Nadie mira y aun así cuenta.</p>
+        </article>
+        <article class="round" data-in="96,112" data-out="172,184">
+          <p class="round__k mono" data-r="fade">Round 02</p>
+          <h3 class="display display--l" data-r="chars">Esfuerzo</h3>
+          <p class="round__p" data-r="lines">Tercer asalto de sparring. El aire pesa. Lo que aguantes aquí es lo que tendrás el día del combate.</p>
+        </article>
+        <article class="round" data-in="188,204" data-out="264,276">
+          <p class="round__k mono" data-r="fade">Round 03</p>
+          <h3 class="display display--l" data-r="chars">Recuperación</h3>
+          <p class="round__p" data-r="lines">Hielo, agua, silencio. El cuerpo no mejora mientras entrenas. Mejora después.</p>
+        </article>
+        <article class="round" data-in="280,296" data-out="356,368">
+          <p class="round__k mono" data-r="fade">Round 04</p>
+          <h3 class="display display--l" data-r="chars">Nutrición</h3>
+          <p class="round__p" data-r="lines">Lo que pones dentro decide cómo vuelves. Electrolitos, aminoácidos, vitaminas B. Cero azúcar.</p>
+        </article>
+        <article class="round" data-in="372,388" data-out="440,460">
+          <p class="round__k mono" data-r="fade">Round 05</p>
+          <h3 class="display display--l" data-r="chars">Volver</h3>
+          <p class="round__p" data-r="lines">Mañana, a la misma hora. Otra vez.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- 05 · FÓRMULA -->
+    <section id="formula" class="scene" data-scene="formula" data-label="Fórmula" style="--h:400">
+      <div class="pin pin--front">
+        <div class="formula">
+          <header class="formula__head">
+            <h2 class="display display--m" data-r="chars" data-in="-20,8" data-out="276,296">Formulado para el esfuerzo.</h2>
+          </header>
+          <ol class="formula__list" data-r="fade" data-in="-10,12" data-out="276,296">
+            <li><div><h3>Cafeína <b>200 mg</b></h3><p>Unos dos cafés en una lata. Contenido elevado de cafeína: cuéntala en tu día.</p></div></li>
+            <li><div><h3>BCAAs <b>4.000 mg</b></h3><p>L-leucina, L-isoleucina y L-valina. Los tres aminoácidos de cadena ramificada.</p></div></li>
+            <li><div><h3>Taurina <b>1.000 mg</b></h3><p>Un aminoácido que tu cuerpo ya produce. Un gramo por lata.</p></div></li>
+            <li><div><h3>L-carnitina <b>500 mg</b></h3><p>Un compuesto que el organismo también fabrica. Medio gramo por lata.</p></div></li>
+            <li><div><h3>Vitaminas <b>B3 · B6 · B12</b></h3><p>Contribuyen a disminuir el cansancio y la fatiga.*</p></div></li>
+            <li><div><h3>Electrolitos <b>Na · K · Mg</b></h3><p>El potasio y el magnesio contribuyen al funcionamiento normal de los músculos.* Sodio: 60 mg.</p></div></li>
+            <li><div><h3>Sin azúcar <b>0 g</b></h3><p>10 kcal por lata. Endulzada con sucralosa y acesulfamo K.</p></div></li>
+          </ol>
+          <p class="formula__note" data-r="fade" data-in="0,20" data-out="276,296">*Declaraciones sujetas a la cantidad final por lata. Contenido elevado de cafeína (200 mg por lata). No recomendado para menores de 18 años, embarazadas ni durante la lactancia.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 06 · MANIFIESTO -->
+    <section id="manifiesto" class="scene" data-scene="manifiesto" data-label="Manifiesto" style="--h:440">
+      <div class="pin pin--front">
+        <h2 class="sr-only">Manifiesto KOFULL</h2>
+        <div class="manifesto">
+          <p class="display display--l" data-r="chars" data-in="-10,14" data-out="36,48">No es para quien entrena cuando le apetece.</p>
+          <p class="display display--l" data-r="chars" data-in="50,64" data-out="84,96">Ni para quien busca atajos.</p>
+          <p class="display display--l" data-r="chars" data-in="98,112" data-out="132,144">Es para quien recibe el golpe.</p>
+          <p class="display display--xl" data-r="chars" data-in="146,158" data-out="178,190">Y se levanta.</p>
+          <p class="display display--l" data-r="chars" data-in="192,206" data-out="226,238">Para quien pide otro round.</p>
+          <p class="display display--xl" data-r="chars" data-in="240,252" data-out="270,282">Y otro.</p>
+          <div class="manifesto__end" data-in="286,302" data-out="330,342">
+            <p class="display display--xxl manifesto__brand" data-r="chars">KOFULL.</p>
+            <p class="mono manifesto__trr" data-r="fade">Train. Recover. Return.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 07 · RECUPERACIÓN -->
+    <section id="recuperacion" class="scene scene--slow" data-scene="recuperacion" data-label="Recuperación" style="--h:340">
+      <div class="pin pin--front">
+        <div class="recovery">
+          <h2 class="display display--xl recovery__t">
+            <span data-r="lines" data-in="-6,30" data-out="200,232">El round termina.</span>
+            <span class="recovery__ice" data-r="lines" data-in="40,80" data-out="200,232">La recuperación empieza.</span>
+          </h2>
+          <p class="recovery__p" data-r="lines" data-in="96,130" data-out="200,232">Respira. Bebe agua. Come. Duerme. Aquí no se gana nada con prisa: el cuerpo se reconstruye en silencio, y KOFULL está en ese silencio.</p>
+          <ul class="recovery__steps mono" data-r="fade" data-in="130,160" data-out="200,232">
+            <li>00:00 — Campana</li><li>00:10 — Respiración</li><li>00:30 — Agua</li><li>01:00 — KOFULL</li><li>08:00 — Sueño</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 08 · GAMA -->
+    <section id="gama" class="scene" data-scene="gama" data-label="La gama" style="--h:480">
+      <div class="pin pin--front">
+        <h2 class="sr-only">La gama KOFULL: cuatro sabores, una fórmula</h2>
+        <div class="flavor" data-in="-20,12" data-out="58,72">
+          <h3 class="display display--xl flavor__name" data-r="chars">Frutas<br>Rojas</h3>
+          <p class="flavor__p" data-r="lines">Fresa, frambuesa y un final ácido. La lata original.</p>
+          <p class="mono flavor__spec" data-r="fade">473 mL · 200 mg cafeína · 0 g azúcar · 10 kcal</p>
+        </div>
+        <div class="flavor" data-in="100,120" data-out="148,162">
+          <h3 class="display display--xl flavor__name" data-r="chars">Mango<br>Passion</h3>
+          <p class="flavor__p" data-r="lines">Mango maduro y maracuyá. Dulce al entrar, seco al final.</p>
+          <p class="mono flavor__spec" data-r="fade">473 mL · 200 mg cafeína · 0 g azúcar · 10 kcal</p>
+        </div>
+        <div class="flavor" data-in="190,210" data-out="238,252">
+          <h3 class="display display--xl flavor__name" data-r="chars">Lima<br>Limón</h3>
+          <p class="flavor__p" data-r="lines">Cítrico directo, sin rodeos. La más fresca de la gama.</p>
+          <p class="mono flavor__spec" data-r="fade">473 mL · 200 mg cafeína · 0 g azúcar · 10 kcal</p>
+        </div>
+        <div class="flavor" data-in="280,300" data-out="350,372">
+          <h3 class="display display--xl flavor__name" data-r="chars">Blue<br>Berry</h3>
+          <p class="flavor__p" data-r="lines">Arándano oscuro, poco dulce. Para la última sesión del día.</p>
+          <p class="mono flavor__spec" data-r="fade">473 mL · 200 mg cafeína · 0 g azúcar · 10 kcal</p>
+        </div>
+        <div class="flavor__dots" data-r="fade" data-in="-10,10" data-out="350,372" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+      </div>
+    </section>
+
+    <!-- 09 · VALENCIA -->
+    <section id="valencia" class="scene" data-scene="valencia" data-label="Valencia" style="--h:220">
+      <div class="pin pin--back">
+        <div class="horizon" data-r="fade" data-in="-40,10" data-out="98,120"></div>
+      </div>
+      <div class="pin pin--front">
+        <div class="vlc">
+          <h2 class="display display--xl" data-r="chars" data-in="-10,18" data-out="98,118">Hecho en <em>Valencia.</em></h2>
+          <p class="vlc__p" data-r="lines" data-in="10,36" data-out="98,118">Asfalto que quema en agosto, el mar a diez minutos y tatamis que abren a las siete. Aquí se entrena de noche porque de día no se puede. De ahí sale KOFULL.</p>
+          <p class="mono vlc__k" data-r="fade" data-in="24,44" data-out="98,118">39.4699° N · 0.3763° W · Valencia</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10 · TIENDA -->
+    <section id="tienda" class="shop" data-scene="tienda" data-label="Tienda">
+      <header class="shop__head">
+        <p class="mono">Tienda · Precios provisionales de lanzamiento</p>
+        <h2 class="display display--xl">Elige tu round.</h2>
+      </header>
+      <div class="shop__row">
+        <article class="product" style="--ink:#d10f18;--deep:#3a0306" data-id="red">
+          <div class="product__img"><img src="assets/img/photo-red.webp" alt="Lata KOFULL Frutas Rojas de 473 mL con gotas de condensación sobre fondo rojo" loading="lazy" width="915" height="1165"></div>
+          <div class="product__body">
+            <h3 class="product__name">KOFULL <span>Frutas Rojas</span></h3>
+            <p class="product__fn">Energía · Enfoque · Electrolitos</p>
+            <div class="product__opts" role="radiogroup" aria-label="Formato">
+              <button type="button" role="radio" aria-checked="true" data-price="2.90" data-fmt="Lata 473 mL">Lata</button>
+              <button type="button" role="radio" aria-checked="false" data-price="31.90" data-fmt="Pack 12 latas">Pack 12</button>
+            </div>
+            <div class="product__buy"><p class="product__price"><span>2,90 €</span><small>precio provisional</small></p><button class="btn btn--buy" type="button">Comprar</button></div>
+          </div>
+        </article>
+        <article class="product" style="--ink:#ec4806;--deep:#3d1103" data-id="orange">
+          <div class="product__img"><img src="assets/img/photo-orange.webp" alt="Lata KOFULL Mango Passion de 473 mL con gotas de condensación sobre fondo naranja" loading="lazy" width="768" height="990"></div>
+          <div class="product__body">
+            <h3 class="product__name">KOFULL <span>Mango Passion</span></h3>
+            <p class="product__fn">Energía · Rendimiento · Electrolitos</p>
+            <div class="product__opts" role="radiogroup" aria-label="Formato">
+              <button type="button" role="radio" aria-checked="true" data-price="2.90" data-fmt="Lata 473 mL">Lata</button>
+              <button type="button" role="radio" aria-checked="false" data-price="31.90" data-fmt="Pack 12 latas">Pack 12</button>
+            </div>
+            <div class="product__buy"><p class="product__price"><span>2,90 €</span><small>precio provisional</small></p><button class="btn btn--buy" type="button">Comprar</button></div>
+          </div>
+        </article>
+        <article class="product" style="--ink:#70be10;--deep:#122a04" data-id="green">
+          <div class="product__img"><img src="assets/img/photo-green.webp" alt="Lata KOFULL Lima Limón de 473 mL con gotas de condensación sobre fondo verde" loading="lazy" width="768" height="984"></div>
+          <div class="product__body">
+            <h3 class="product__name">KOFULL <span>Lima Limón</span></h3>
+            <p class="product__fn">Hidratación · Electrolitos · Enfoque</p>
+            <div class="product__opts" role="radiogroup" aria-label="Formato">
+              <button type="button" role="radio" aria-checked="true" data-price="2.90" data-fmt="Lata 473 mL">Lata</button>
+              <button type="button" role="radio" aria-checked="false" data-price="31.90" data-fmt="Pack 12 latas">Pack 12</button>
+            </div>
+            <div class="product__buy"><p class="product__price"><span>2,90 €</span><small>precio provisional</small></p><button class="btn btn--buy" type="button">Comprar</button></div>
+          </div>
+        </article>
+        <article class="product" style="--ink:#083cd2;--deep:#030d33" data-id="blue">
+          <div class="product__img"><img src="assets/img/photo-blue.webp" alt="Lata KOFULL Blue Berry de 473 mL con gotas de condensación sobre fondo azul" loading="lazy" width="772" height="987"></div>
+          <div class="product__body">
+            <h3 class="product__name">KOFULL <span>Blue Berry</span></h3>
+            <p class="product__fn">Recuperación · Electrolitos · Vitaminas B</p>
+            <div class="product__opts" role="radiogroup" aria-label="Formato">
+              <button type="button" role="radio" aria-checked="true" data-price="2.90" data-fmt="Lata 473 mL">Lata</button>
+              <button type="button" role="radio" aria-checked="false" data-price="31.90" data-fmt="Pack 12 latas">Pack 12</button>
+            </div>
+            <div class="product__buy"><p class="product__price"><span>2,90 €</span><small>precio provisional</small></p><button class="btn btn--buy" type="button">Comprar</button></div>
+          </div>
+        </article>
+      </div>
+      <p class="shop__note">Misma fórmula en los cuatro sabores. Envíos a península desde el lanzamiento. Contenido elevado de cafeína (200 mg por lata).</p>
+    </section>
+
+    <!-- 11 · FINAL -->
+    <section id="final" class="scene" data-scene="final" data-label="Siguiente round" style="--h:200">
+      <div class="pin pin--back">
+        <h2 class="final__t display" data-r="chars" data-in="-20,20" data-out="none">Ready for the next round?</h2>
+      </div>
+      <div class="pin pin--front">
+        <div class="final__foot" data-r="fade" data-in="10,40" data-out="none">
+          <p class="final__brand">KOFULL</p>
+          <p class="mono">Valencia · 2026</p>
+          <a class="btn btn--red" href="#tienda">Descubrir productos</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="foot__brand">KOFULL<sup>®</sup></div>
+    <p class="mono">Valencia — España · 2026</p>
+    <nav aria-label="Contacto" class="foot__links">
+      <a href="mailto:hola@kofull.es">Contacto</a>
+    </nav>
+    <nav aria-label="Legal" class="foot__links foot__legal">
+      <a href="#legal">Legal</a><a href="#privacidad">Privacidad</a><a href="#cookies">Cookies</a>
+    </nav>
+  </footer>
+
+  <!-- BOLSA -->
+  <aside class="cart" aria-hidden="true" aria-labelledby="cart-t" role="dialog" aria-modal="true">
+    <div class="cart__scrim" data-close></div>
+    <div class="cart__panel">
+      <header class="cart__head"><h2 id="cart-t" class="mono">Tu bolsa</h2><button type="button" class="cart__close" data-close aria-label="Cerrar bolsa">Cerrar</button></header>
+      <ul class="cart__list"></ul>
+      <p class="cart__empty">Todavía nada. El primer round se elige abajo.</p>
+      <footer class="cart__foot">
+        <p class="cart__total"><span>Total</span><b>0,00 €</b></p>
+        <button class="btn btn--red cart__checkout" type="button">Finalizar compra</button>
+        <p class="cart__hint mono">Precios provisionales de lanzamiento</p>
+      </footer>
+    </div>
+    <!-- Pasarela decorativa: no envía, cobra ni guarda nada -->
+    <form class="checkout" novalidate autocomplete="off" aria-labelledby="co-t">
+      <header class="cart__head"><button type="button" class="cart__close co-back">← Bolsa</button><h2 id="co-t" class="mono">Pago seguro</h2></header>
+      <div class="co-body">
+        <p class="co-demo mono">Modo demostración · no se realiza ningún cargo</p>
+        <fieldset><legend>Envío</legend>
+          <label>Nombre y apellidos<input type="text" required></label>
+          <label>Email<input type="email" required></label>
+          <label>Dirección<input type="text" required></label>
+          <div class="co-row"><label>Código postal<input type="text" inputmode="numeric" maxlength="5" required></label><label>Ciudad<input type="text" value="Valencia" required></label></div>
+        </fieldset>
+        <fieldset><legend>Método de pago</legend>
+          <div class="co-methods" role="radiogroup" aria-label="Método de pago">
+            <button type="button" role="radio" aria-checked="true" data-m="card">Tarjeta</button>
+            <button type="button" role="radio" aria-checked="false" data-m="bizum">Bizum</button>
+            <button type="button" role="radio" aria-checked="false" data-m="paypal">PayPal</button>
+            <button type="button" role="radio" aria-checked="false" data-m="apple">Apple Pay</button>
+          </div>
+          <div class="co-pane" data-pane="card">
+            <label>Número de tarjeta<input type="text" inputmode="numeric" placeholder="0000 0000 0000 0000" maxlength="19" required></label>
+            <div class="co-row"><label>Caducidad<input type="text" placeholder="MM/AA" maxlength="5" required></label><label>CVC<input type="text" inputmode="numeric" placeholder="123" maxlength="4" required></label></div>
+          </div>
+          <div class="co-pane" data-pane="bizum" hidden><label>Teléfono<input type="tel" placeholder="600 000 000"></label></div>
+          <div class="co-pane" data-pane="paypal" hidden><p class="co-note">Te llevaremos a PayPal para completar el pago.</p></div>
+          <div class="co-pane" data-pane="apple" hidden><p class="co-note">Confirma el pago con Face ID o Touch ID.</p></div>
+        </fieldset>
+        <p class="co-error" role="alert" hidden>Rellena los campos marcados para continuar.</p>
+      </div>
+      <footer class="cart__foot">
+        <p class="cart__total"><span>Total</span><b class="co-total">0,00 €</b></p>
+        <button class="btn btn--red co-pay" type="submit">Pagar</button>
+        <p class="cart__hint mono">Pago cifrado · Tarjeta, Bizum, PayPal, Apple Pay</p>
+      </footer>
+    </form>
+    <div class="co-done" role="status" hidden>
+      <p class="mono co-demo">Pedido de demostración</p>
+      <p class="display display--m">Pedido<br>confirmado.</p>
+      <p class="co-num mono"></p>
+      <p class="co-note">Esto es una demostración: no se ha cobrado nada ni se han guardado tus datos. Nos vemos en el siguiente round.</p>
+      <button type="button" class="btn btn--red co-close">Volver a KOFULL</button>
+    </div>
+  </aside>
+
+  <div class="nogl" hidden>
+    <img src="assets/img/photo-red.webp" alt="Lata KOFULL Frutas Rojas">
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.4/dist/lenis.min.js" defer></script>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

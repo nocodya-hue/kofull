@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>KOFULL · Vista previa iPhone</title>
+<style>
+  :root { --bg: #1a1b1e; --ink: #f2f1ee; --muted: #8d9096; --red: #d10f18; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; background: var(--bg); color: var(--ink); font: 500 12px/1.4 system-ui, sans-serif; letter-spacing: .08em; text-transform: uppercase; }
+  body { display: grid; grid-template-rows: auto 1fr; }
+  header { display: flex; justify-content: center; gap: 8px; padding: 14px; }
+  button { font: inherit; letter-spacing: inherit; text-transform: inherit; color: var(--ink); background: none; border: 1px solid #3a3b3f; padding: 10px 16px; cursor: pointer; }
+  button[aria-pressed="true"] { background: var(--ink); color: #070708; border-color: var(--ink); }
+  main { display: grid; place-items: center; overflow: hidden; padding: 6px; }
+  .wrap { transform-origin: top center; }
+  .phone { position: relative; background: #000; border-radius: 48px; padding: 14px; box-shadow: 0 0 0 2px #3a3b3f, 0 30px 80px rgba(0,0,0,.6); }
+  .phone.se { border-radius: 54px; padding: 72px 14px; }
+  .phone.se::before { content: ''; position: absolute; top: 30px; left: 50%; width: 60px; height: 6px; margin-left: -30px; border-radius: 3px; background: #2a2b2e; }
+  .phone.se::after { content: ''; position: absolute; bottom: 12px; left: 50%; width: 48px; height: 48px; margin-left: -24px; border-radius: 50%; border: 2px solid #2a2b2e; }
+  .phone.i11 .notch { position: absolute; top: 14px; left: 50%; width: 170px; height: 30px; margin-left: -85px; background: #000; border-radius: 0 0 18px 18px; z-index: 2; }
+  iframe { display: block; border: 0; background: #070708; }
+  .phone.i11 iframe { border-radius: 36px; }
+  .info { margin-top: 14px; text-align: center; color: var(--muted); }
+</style>
+</head>
+<body>
+  <header>
+    <button type="button" data-d="se" aria-pressed="true">iPhone SE · 375 × 667</button>
+    <button type="button" data-d="i11" aria-pressed="false">iPhone 11 · 414 × 896</button>
+  </header>
+  <main>
+    <div class="wrap">
+      <div class="phone se"><span class="notch"></span><iframe title="KOFULL en iPhone" src="index.html" width="375" height="667"></iframe></div>
+      <p class="info">Haz scroll con la rueda dentro del teléfono</p>
+    </div>
+  </main>
+<script>
+  const sizes = { se: [375, 667], i11: [414, 896] };
+  const phone = document.querySelector('.phone'), frame = document.querySelector('iframe'), wrap = document.querySelector('.wrap');
+  // encoge el teléfono si no cabe en la ventana (la web dentro mantiene su tamaño real)
+  const fit = () => { wrap.style.transform = 'none'; const r = wrap.getBoundingClientRect(); const avail = innerHeight - document.querySelector('header').offsetHeight - 16; const s = Math.min(1, avail / r.height, (innerWidth - 16) / r.width); wrap.style.transform = `scale(${s})`; wrap.style.marginBottom = `${-(1 - s) * r.height}px`; };
+  addEventListener('resize', fit); fit();
+  document.querySelectorAll('[data-d]').forEach((b) => b.addEventListener('click', () => {
+    const d = b.dataset.d;
+    document.querySelectorAll('[data-d]').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+    phone.className = 'phone ' + d;
+    frame.width = sizes[d][0]; frame.height = sizes[d][1];
+    frame.src = 'index.html?' + d; // recarga para que la web recalcule su composición
+    fit();
+  }));
+</script>
+</body>
+</html>
