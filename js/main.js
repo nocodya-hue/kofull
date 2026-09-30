@@ -11,7 +11,6 @@ const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const coarse = matchMedia('(pointer: coarse)').matches;
 const isMobile = () => innerWidth < 820;
 const lowPower = isMobile() || coarse || (navigator.hardwareConcurrency || 8) <= 4;
-const want4k = !lowPower && (devicePixelRatio > 1 || innerWidth > 1600);
 
 if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
 scrollTo(0, 0);
@@ -49,7 +48,7 @@ async function initStage() {
     stage = new Stage(canvas, { lowPower, reducedMotion: reduced, onProgress: (p) => setLoad(0.15 + p * 0.8) });
     stage.resize();
     const res = lowPower ? '2k' : '2k';
-    await stage.buildCans(FLAVORS.map((f) => `assets/tex/label-${f.key}-${res}.webp`), 'assets/tex/drops-normal.png');
+    await stage.buildCans(FLAVORS.map((f) => `assets/tex/label-${f.key}-${res}.webp`), 'assets/tex/drops-normal.webp');
     return true;
   } catch (e) {
     console.warn('KOFULL: WebGL no disponible, modo estático.', e);
@@ -255,28 +254,15 @@ function frame() {
 
 // ---------------- Interacción ----------------
 function initPointer() {
-  const cur = $('.cursor');
-  if (!coarse && !reduced) body.classList.add('has-cursor');
-  let down = false, lastX = 0;
-  // posición objetivo (ratón) y posición pintada; se interpola una vez por fotograma
-  const p = { tx: innerWidth / 2, ty: innerHeight / 2, x: innerWidth / 2, y: innerHeight / 2, seen: false };
-  let isLink = false, isDrag = false;
+  // cursor nativo de marca (lo mueve el sistema: nunca se retrasa aunque el 3D vaya cargado)
+  if (!coarse) body.classList.add('has-cursor');
+  let down = false, lastX = 0, canDrag = false;
   addEventListener('pointermove', (e) => {
-    p.tx = e.clientX; p.ty = e.clientY;
-    if (!p.seen) { p.seen = true; p.x = p.tx; p.y = p.ty; }
     stage && stage.setPointer((e.clientX / innerWidth) * 2 - 1, (e.clientY / innerHeight) * 2 - 1);
-    const interactive = !!e.target.closest('a, button, [role="radio"], input');
-    const drag = !interactive && data.drag > 0.5 && data.vis > 0.5 && introDone;
-    if (interactive !== isLink) { isLink = interactive; cur.classList.toggle('is-link', isLink); }
-    if (drag !== isDrag) { isDrag = drag; cur.classList.toggle('is-drag', isDrag); }
+    const drag = data.drag > 0.5 && data.vis > 0.5 && introDone;
+    if (drag !== canDrag) { canDrag = drag; body.classList.toggle('can-drag', canDrag); }
     if (down && stage) { stage.dragBy(e.clientX - lastX); lastX = e.clientX; }
   }, { passive: true });
-  // suavizado exponencial independiente de los FPS: fluido, sin tirones y sin quedarse atrás
-  gsap.ticker.add((_t, dtMs) => {
-    const k = 1 - Math.exp(-(Math.min(dtMs, 50) / 1000) * 26);
-    p.x += (p.tx - p.x) * k; p.y += (p.ty - p.y) * k;
-    cur.style.transform = `translate3d(${p.x.toFixed(2)}px, ${p.y.toFixed(2)}px, 0)`;
-  });
   addEventListener('pointerdown', (e) => {
     if (e.target.closest('a, button, .shop, .cart, input') || data.drag < 0.5 || !stage) return;
     down = true; stage.dragging = true; lastX = e.clientX;
@@ -420,16 +406,22 @@ async function boot() {
   initNav();
   initCart();
 
-  const wait = Math.max(0, 1100 - (performance.now() - t0));
+  const wait = Math.max(0, 500 - (performance.now() - t0));
   setTimeout(() => {
     loader.done = true;
-    gsap.to(loader.el, { autoAlpha: 0, duration: 0.7, ease: 'power2.inOut', onComplete: () => loader.el.remove() });
+    gsap.to(loader.el, { autoAlpha: 0, duration: 0.6, ease: 'power2.inOut', onComplete: () => loader.el.remove() });
     playIntro();
     if (!lenis) { introDone = true; body.classList.remove('is-loading'); }
-    // etiquetas restantes (y 4K) en segundo plano
+    // los otros tres sabores se cargan solo al acercarse a la gama (no compiten con la entrada)
     if (ok) {
-      const idle = window.requestIdleCallback || ((f) => setTimeout(f, 400));
-      idle(() => stage.loadRest(want4k ? FLAVORS.map((f) => `assets/tex/label-${f.key}-4k.webp`) : null));
+      let started = false;
+      const check = () => {
+        if (started || scrollY < (tops.formula || 0)) return;
+        started = true; removeEventListener('scroll', check);
+        stage.loadRest();
+      };
+      addEventListener('scroll', check, { passive: true });
+      check();
     }
   }, wait);
 

@@ -27,7 +27,7 @@ export class Stage {
     this.clock = new THREE.Clock();
     this.pointer = { x: 0, y: 0, sx: 0, sy: 0 };
     this.userSpin = 0; this.userSpinV = 0; this.dragging = false;
-    this.maxDpr = lowPower ? 1.5 : 2;
+    this.maxDpr = 1.5;
     this.dpr = Math.min(window.devicePixelRatio || 1, this.maxDpr);
     this.fpsSamples = [];
 

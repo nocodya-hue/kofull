@@ -14,7 +14,7 @@ Web de marca de KOFULL, bebida funcional nacida del MMA en Valencia (2026). Expe
 - `index.html` · contenido y escenas
 - `css/kofull.css` · sistema visual
 - `js/stage.js` · escena 3D · `js/scenes.js` · coreografía · `js/main.js` · scroll, textos, tienda
-- `assets/tex` · etiquetas 2K/4K de los cuatro sabores · `assets/img` · fotografía
+- `assets/tex` · etiquetas 2K de los cuatro sabores · `assets/img` · fotografía
 - `DIRECCION.md` · dirección artística y mapa de escenas
 
 ## Notas
